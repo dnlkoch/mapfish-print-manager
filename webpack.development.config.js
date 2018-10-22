@@ -6,6 +6,14 @@ module.exports = merge(commonConfig, {
   devServer: {
     contentBase: './example',
     compress: true,
-    port: 9000
+    port: 9000,
+    proxy: {
+      '/print/**': {
+        target: {
+          host: '127.0.0.1',
+          port: 18082
+        }
+      }
+    }
   }
 });
