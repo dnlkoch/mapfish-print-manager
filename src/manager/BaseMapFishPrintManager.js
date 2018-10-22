@@ -244,6 +244,7 @@ export class BaseMapFishPrintManager extends Observable {
    * Initializes the manager instance. Typically called by subclasses via init().
    *
    * TODO Check return type Boolean?
+   * TODO Input should be from Type PrintCapabilities, Managers must parse accordingly.
    *
    * @param {Object} capabilities The capabilities to set.
    * @return {Boolean}
