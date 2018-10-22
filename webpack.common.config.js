@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'print-manager-example': './example/print-manager-example.js',
+    'print-manager-v2-example': './example/print-manager-v2-example.js',
+    'print-manager-v3-example': './example/print-manager-v3-example.js'
   },
 
   output: {

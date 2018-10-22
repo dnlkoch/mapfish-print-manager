@@ -1,8 +1,8 @@
-import OlMap from 'ol/map';
-import OlView from 'ol/view';
-import OlLayerTile from 'ol/layer/tile';
-import OlSourceTileWMS from 'ol/source/tilewms';
-import OlProj from 'ol/proj';
+import OlMap from 'ol/Map';
+import OlView from 'ol/View';
+import OlLayerTile from 'ol/layer/Tile';
+import OlSourceTileWMS from 'ol/source/TileWMS';
+import { fromLonLat } from 'ol/proj';
 
 import { MapFishPrintV2Manager } from '../src/index';
 
@@ -19,7 +19,7 @@ const map = new OlMap({
     })
   ],
   view: new OlView({
-    center: OlProj.fromLonLat([7.11566, 50.40570]),
+    center: fromLonLat([7.11566, 50.40570]),
     zoom: 10
   })
 });
