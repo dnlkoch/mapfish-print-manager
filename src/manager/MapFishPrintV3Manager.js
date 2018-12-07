@@ -1,4 +1,5 @@
 import BaseMapFishPrintManager from './BaseMapFishPrintManager';
+import Logger from '../util/Logger';
 
 /**
  * The MapFishPrintV3Manager.
@@ -140,8 +141,7 @@ export class MapFishPrintV3Manager extends BaseMapFishPrintManager {
     });
 
     if (!printApp) {
-      // TODO Import Log
-      Log.warn(`No print application named '${printAppName}' found.`);
+      Logger.warn(`No print application named '${printAppName}' found.`);
       return;
     }
 
