@@ -81,7 +81,7 @@ export class MapFishPrintV3Manager extends BaseMapFishPrintManager {
       .then(response => this.validateResponse(response))
       .then(response => response.json())
       .then(json => {
-        this._printApps = json;
+        this.setPrintApps(json);
         this.setPrintApp(this.getPrintApps()[0]);
         return Promise.resolve(json);
       })
@@ -119,7 +119,16 @@ export class MapFishPrintV3Manager extends BaseMapFishPrintManager {
    */
   getPrintApps() {
     return this._printApps;
-  };
+  }
+
+  /**
+   * Sets the supported print applications.
+   *
+   * @param {Array} printApps The supported print applications to set.
+   */
+  setPrintApps(printApps) {
+    this._printApps = printApps;
+  }
 
   /**
    * Returns the currently selected print application.
