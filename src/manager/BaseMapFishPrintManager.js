@@ -249,7 +249,7 @@ export class BaseMapFishPrintManager extends Observable {
    * @param {Object} capabilities The capabilities to set.
    * @return {Boolean}
    */
-  initManager = capabilities => {
+  initManager(capabilities) {
     this.capabilities = capabilities;
 
     this._layouts = this.capabilities.layouts;
@@ -274,7 +274,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Shuts down the manager.
    */
-  shutdownManager = () => {
+  shutdownManager() {
     // Remove print layer from map. But only if not given by user.
     const layerCandidates = Shared.getLayersByName(this.map,
       this.constructor.EXTENT_LAYER_NAME);
@@ -294,7 +294,7 @@ export class BaseMapFishPrintManager extends Observable {
    * @param {Response} response The response to validate.
    * @return {Promise} The resolved or rejected promise.
    */
-  validateResponse = response => {
+  validateResponse(response) {
     if (response.status >= 200 && response.status < 300) {
       return Promise.resolve(response);
     } else {
@@ -306,7 +306,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Initializes the print extent layer.
    */
-  initPrintExtentLayer = () => {
+  initPrintExtentLayer() {
     if (!(this.extentLayer instanceof OlLayerVector)) {
       const extentLayer = new OlLayerVector({
         name: this.constructor.EXTENT_LAYER_NAME,
@@ -335,7 +335,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {ol.render.Event} olEvt The ol render event.
    */
-  onExtentLayerPreCompose = olEvt => {
+  onExtentLayerPreCompose(olEvt) {
     const ctx = olEvt.context;
     ctx.save();
   }
@@ -345,7 +345,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {ol.render.Event} olEvt The ol render event.
    */
-  onExtentLayerPostCompose = olEvt => {
+  onExtentLayerPostCompose(olEvt) {
     const ctx = olEvt.context;
     const canvas = ctx.canvas;
     const width = canvas.width;
@@ -384,7 +384,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @return {ol.Feature} The extent feature.
    */
-  initPrintExtentFeature = () => {
+  initPrintExtentFeature() {
     const printExtent = this.calculatePrintExtent();
     const extentFeature = new OlFeature(fromExtent(printExtent));
     const extentLayerSource = this.extentLayer.getSource();
@@ -400,7 +400,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Initializes the transform interaction.
    */
-  initTransformInteraction = () => {
+  initTransformInteraction() {
     if (Shared.getInteractionsByName(this.map,
       this.constructor.TRANSFORM_INTERACTION_NAME).length === 0) {
       const transform = new OlInteractionTransform({
@@ -425,7 +425,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Called on translate interaction's `scaling` event.
    */
-  onTransformScaling = () => {
+  onTransformScaling() {
     const scale = this.getClosestScaleToFitExtentFeature();
     this.setScale(scale.name);
   }
@@ -433,7 +433,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Returns the closest scale to current print feature's extent.
    */
-  getClosestScaleToFitExtentFeature = () => {
+  getClosestScaleToFitExtentFeature() {
     const scales = this.getScales();
     const printFeatureExtent = this._extentFeature.getGeometry().getExtent();
     const printFeatureSize = getSize(printFeatureExtent);
@@ -459,7 +459,7 @@ export class BaseMapFishPrintManager extends Observable {
    * Returns the closest scale to fit the print feature's extent into the
    * current extent of the map.
    */
-  getClosestScaleToFitMap = () => {
+  getClosestScaleToFitMap() {
     const mapView = this.map.getView();
     const mapExtent = mapView.calculateExtent();
     const scales = this.getScales();
@@ -480,7 +480,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Calculates the current rotation of the print extent feature.
    */
-  calculateRotation = () => {
+  calculateRotation() {
     const extentFeature = this._extentFeature;
     const coords = extentFeature.getGeometry().getCoordinates()[0];
     const p1 = coords[0];
@@ -493,7 +493,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Resets the rotation of the print extent feature.
    */
-  resetRotation = () => {
+  resetRotation() {
     this.setRotation(this.calculateRotation() * -1);
   }
 
@@ -502,7 +502,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {Number} rotation The amount to rotate.
    */
-  setRotation = rotation => {
+  setRotation(rotation) {
     const center = getCenter(this._extentFeature.getGeometry().getExtent());
     this._extentFeature.getGeometry().rotate(rotation, center);
   }
@@ -510,7 +510,7 @@ export class BaseMapFishPrintManager extends Observable {
   /**
    * Updates the geometry of the print extent feature to match the current scale.
    */
-  updatePrintExtent = () => {
+  updatePrintExtent() {
     if (this.isInitiated()) {
       const printExtent = this.calculatePrintExtent();
       if (this._extentFeature) {
@@ -526,7 +526,7 @@ export class BaseMapFishPrintManager extends Observable {
    *                       the current scale of the provider will be used.
    * @return {ol.Extent} The extent.
    */
-  calculatePrintExtent = scale => {
+  calculatePrintExtent(scale) {
     const printMapSize = this.getLayout().map;
     const printScale = scale || this.getScale().value;
     const mapUnits = this.map.getView().getProjection().getUnits();
@@ -561,7 +561,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {String} url The url to open.
    */
-  download = url => {
+  download(url) {
     if (/Opera|OPR\//.test(navigator.userAgent)) {
       window.open(url);
     } else {
@@ -574,7 +574,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @return {Object} The currently selected layout.
    */
-  getLayout = () => {
+  getLayout() {
     return this._layout;
   }
 
@@ -583,7 +583,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {String} name The name of the layout to use.
    */
-  setLayout = name => {
+  setLayout(name) {
     const layout = this.getLayouts().find(layout => {
       return layout.name === name;
     });
@@ -605,7 +605,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @return {Object} The currently selected output format.
    */
-  getOutputFormat = () => {
+  getOutputFormat() {
     return this._outputFormat;
   }
 
@@ -614,7 +614,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {String} name The name of the output format to use.
    */
-  setOutputFormat = name => {
+  setOutputFormat(name) {
     const format = this.getOutputFormats().find(format => {
       return format.name === name;
     });
@@ -634,7 +634,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @return {Object} The currently selected dpi.
    */
-  getDpi = () => {
+  getDpi() {
     return this._dpi;
   }
 
@@ -643,7 +643,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {String} name The name of the dpi to use.
    */
-  setDpi = name => {
+  setDpi(name) {
     const dpi = this.getDpis().find(dpi => {
       return dpi.name === name;
     });
@@ -663,7 +663,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @return {Object} The currently selected scale.
    */
-  getScale = () => {
+  getScale() {
     return this._scale;
   }
 
@@ -672,7 +672,7 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @param {String} name The name of the scale to use.
    */
-  setScale = name => {
+  setScale(name) {
     const scale = this.getScales().find(scale => {
       return scale.name === name;
     });
@@ -694,43 +694,43 @@ export class BaseMapFishPrintManager extends Observable {
    *
    * @return {Array} The supported layouts.
    */
-  getLayouts = () => {
+  getLayouts() {
     return this._layouts;
-  };
+  }
 
   /**
    * Returns all supported output formats.
    *
    * @return {Array} The supported output formats.
    */
-  getOutputFormats = () => {
+  getOutputFormats() {
     return this._outputFormats;
-  };
+  }
 
   /**
    * Returns all supported dpis.
    *
    * @return {Array} The supported dpis.
    */
-  getDpis = () => {
+  getDpis() {
     return this._dpis;
-  };
+  }
 
   /**
    * Returns all supported scales.
    *
    * @return {Array} The supported scales.
    */
-  getScales = () => {
+  getScales() {
     return this._scales;
-  };
+  }
 
   /**
    * Whether this manager has been initiated or not.
    *
    * @return {Boolean} Whether this manager has been initiated or not.
    */
-  isInitiated = () => {
+  isInitiated() {
     return this._initiated;
   }
 }

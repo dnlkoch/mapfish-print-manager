@@ -116,7 +116,7 @@ export class MapFishPrintV3Manager extends BaseMapFishPrintManager {
    *
    * @return {Array} The supported print applications.
    */
-  getPrintApps = () => {
+  getPrintApps() {
     return this._printApps;
   };
 
@@ -125,7 +125,7 @@ export class MapFishPrintV3Manager extends BaseMapFishPrintManager {
    *
    * @return {String} The currently selected print application.
    */
-  getPrintApp = () => {
+  getPrintApp() {
     return this._printApp;
   }
 
@@ -134,7 +134,7 @@ export class MapFishPrintV3Manager extends BaseMapFishPrintManager {
    *
    * @param {String} printAppName The name of the application to use.
    */
-  setPrintApp = printAppName => {
+  setPrintApp(printAppName) {
     const printApp = this.getPrintApps().find(pa => {
       return pa === printAppName;
     });

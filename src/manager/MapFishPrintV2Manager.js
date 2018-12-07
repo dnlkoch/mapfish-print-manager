@@ -42,7 +42,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    *
    * @return {Promise}
    */
-  init = () => {
+  init() {
     if (!this.url && this.capabilities) {
       return this.initManager(this.capabilities);
     } else if (this.url && !this.capabilities) {
@@ -58,7 +58,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    *
    * @return {Promise}
    */
-  loadCapabilities = () => {
+  loadCapabilities() {
     return fetch(this.url + this.constructor.INFO_JSON_ENDPOINT, {
       method: 'GET',
       headers: {
@@ -87,7 +87,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    *                             url of the print result will be returned in a
    *                             Promise.
    */
-  print = forceDownload => {
+  print(forceDownload) {
     if (!(this.isInitiated())) {
       Log.warn('The manager hasn\'t been initiated yet. Please call init() first.');
       return;
@@ -132,7 +132,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    *
    * @return {Object} The print payload.
    */
-  getPrintPayload = () => {
+  getPrintPayload() {
     const mapView = this.map.getView();
     const mapProjection = mapView.getProjection();
     const mapLayers = Shared.getMapLayers(this.map);
@@ -183,7 +183,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    * @param {ol.layer.Layer} layer The layer to check.
    * @return {Boolean} Whether the layer should be printed or not.
    */
-  filterPrintableLayer = layer => {
+  filterPrintableLayer(layer) {
     return layer !== this.extentLayer && layer.getVisible() && this.layerFilter(layer);
   }
 
@@ -193,7 +193,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    * @param {ol.layer.Layer} layer The layer to check.
    * @return {Boolean} Whether the legend of the layer should be printed or not.
    */
-  filterPrintableLegend = layer => {
+  filterPrintableLegend(layer) {
     return layer !== this.extentLayer && layer.getVisible() && this.legendFilter(layer);
   }
 
@@ -203,7 +203,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    * @param {ol.layer.Layer} layer The layer to serialize/encode.
    * @return {Object} The serialized/encoded layer.
    */
-  serializeLayer = layer => {
+  serializeLayer(layer) {
     const layerSource = layer.getSource();
     const viewResolution = this.map.getView().getResolution();
 
@@ -227,7 +227,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    * @param {ol.layer.Layer} layer The layer to serialize/encode the legend for.
    * @return {Object} The serialized/encoded legend.
    */
-  serializeLegend = layer => {
+  serializeLegend(layer) {
     if (layer.getSource() instanceof OlSourceTileWMS ||
       layer.getSource() instanceof OlSourceImageWMS) {
       return {
