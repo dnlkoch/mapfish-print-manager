@@ -1,37 +1,25 @@
 throwErrorOnExtraParameters: true
 
 templates:
-    A4 portrait: !template
-        reportTemplate: a4_portrait.jrxml
-        attributes:
-            map: !map
-              maxDpi: 254
-              width: 553
-              height: 555
-            legend: !legend {}
-        processors:
-        - !reportBuilder
-          directory: '.'
-        - !createMap {}
-        - !prepareLegend
-          maxWidth: 54
-          dpi: 100
-          scaled: true
-          template: a4_portrait_legend.jrxml
-    A4 landscape: !template
-        reportTemplate: a4_landscape.jrxml
-        attributes:
-            map: !map
-              maxDpi: 254
-              width: 800
-              height: 553
-            legend: !legend {}
-        processors:
-        - !reportBuilder
-          directory: '.'
-        - !createMap {}
-        - !prepareLegend
-          maxWidth: 54
-          dpi: 100
-          scaled: true
-          template: a4_portrait_legend.jrxml
+  A4 portrait: !template
+    reportTemplate: a4_portrait.jrxml
+    attributes:
+      map: !map
+        maxDpi: 254
+        width: 555
+        height: 800
+    processors:
+    - !reportBuilder
+      directory: '.'
+    - !createMap {}
+  A4 landscape: !template
+    reportTemplate: a4_landscape.jrxml
+    attributes:
+      map: !map
+        maxDpi: 254
+        width: 802
+        height: 555
+    processors:
+    - !reportBuilder
+      directory: '.'
+    - !createMap {}

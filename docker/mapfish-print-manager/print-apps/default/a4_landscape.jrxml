@@ -2,18 +2,16 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4_landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="71f354e3-dc27-413b-85b6-9150bb8afba3">
 	<parameter name="mapSubReport" class="java.lang.String"/>
-	<parameter name="legendDataSource" class="net.sf.jasperreports.engine.data.JRTableModelDataSource"/>
-	<parameter name="legendSubReport" class="java.lang.String"/>
 	<title>
 		<band height="555" splitType="Stretch">
 			<rectangle>
 				<reportElement mode="Opaque" x="0" y="0" width="802" height="555" uuid="0115d7d2-91bd-41a5-abba-eafa96eb0471"/>
 				<graphicElement>
-					<pen lineStyle="Solid"/>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<subreport>
-				<reportElement x="1" y="1" width="801" height="553" uuid="f232608d-9f88-4857-9d75-626b43cd6eef">
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="555" uuid="f232608d-9f88-4857-9d75-626b43cd6eef">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -21,42 +19,10 @@
 				</reportElement>
 				<subreportExpression><![CDATA[$P{mapSubReport}]]></subreportExpression>
 			</subreport>
-			<rectangle>
-				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="243" y="312" width="559" height="243" uuid="2a59bd65-9576-4248-b827-69ffca5b637a"/>
-				<graphicElement>
-					<pen lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement x="537" y="323" width="254" height="220" uuid="0ceefb55-05fd-4b4d-b106-e0c06c4179af"/>
-				<graphicElement>
-					<pen lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
 			<image>
-				<reportElement x="470" y="323" width="50" height="50" uuid="4e3eaa59-50eb-4606-a6de-91c56baf1b88"/>
-				<imageExpression><![CDATA["./img/logo.jpg"]]></imageExpression>
+				<reportElement x="720" y="500" width="75" height="50" uuid="4e3eaa59-50eb-4606-a6de-91c56baf1b88"/>
+				<imageExpression><![CDATA["./img/logo.png"]]></imageExpression>
 			</image>
-			<subreport overflowType="NoStretch">
-				<reportElement positionType="Float" x="537" y="323" width="254" height="220" uuid="83b3b1a6-1aeb-4376-8454-0b346d22ddc0"/>
-				<dataSourceExpression><![CDATA[$P{legendDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{legendSubReport}]]></subreportExpression>
-			</subreport>
-			<textField>
-				<reportElement x="250" y="525" width="270" height="20" uuid="94412741-73f6-405e-b28d-41356d553fe6"/>
-				<textElement markup="html">
-					<font fontName="DejaVu Sans" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Stand Karteninhalt: " + new SimpleDateFormat("dd.MM.yyyy").format(new java.util.Date())]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="250" y="440" width="270" height="80" uuid="4a07a8dd-789b-4dc6-a405-4bb7ddbf05a0"/>
-				<textElement markup="html">
-					<font fontName="DejaVu Sans" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Kartendaten wurden sorgfältig erhoben.<br> Irrtum und Änderungen vorbehalten.<br><br>" +
-"Die Karte ist für den internen Dienstgebrauch bestimmt.<br> Eine Veröffentlichung ist nicht zulässig."]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 </jasperReport>
