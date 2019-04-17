@@ -15,21 +15,23 @@ import pickBy from 'lodash/pickBy';
 import parseColor from 'parse-color';
 import parseFont from 'parse-css-font';
 
+import defaultsDeep from 'lodash/defaultsDeep';
+
 import BaseSerializer from './BaseSerializer';
 
 /**
- * The VectorSerializer.
+ * The MapFishPrintV3GeoJsonSerializer.
  *
  * @class
  */
-export class VectorSerializer extends BaseSerializer {
+export class MapFishPrintV3GeoJsonSerializer extends BaseSerializer {
 
   /**
-   * The vector layer type identificator.
+   * The vector GeoJSON type identificator.
    *
    * @type {String}
    */
-  static TYPE_VECTOR = 'Vector';
+  static TYPE_GEOJSON = 'geojson';
 
   /**
    * The circle geometry type name.
@@ -65,10 +67,18 @@ export class VectorSerializer extends BaseSerializer {
    * Serializes/Encodes the given layer.
    *
    * @param {ol.layer.Layer} layer The layer to serialize/encode.
+   * @param {Object} opts Additional properties to pass to the serialized
+   *   layer object that can't be obtained by the layer itself. It can also be
+   *   used to override all generated layer values, e.g. the image format.
    * @param {Number} viewResolution The resolution to calculate the styles for.
    * @return {Object} The serialized/encoded layer.
    */
-  serialize(layer, viewResolution) {
+  serialize(layer, opts, viewResolution) {
+    defaultsDeep(opts, {
+      failOnError: false,
+      renderAsSvg: false
+    });
+
     const source = layer.getSource();
 
     if (!this.validateSource(source)) {
@@ -132,24 +142,26 @@ export class VectorSerializer extends BaseSerializer {
           if (!serializedFeature.properties) {
             serializedFeature.properties = {};
           }
-          serializedFeature.properties[this.constructor.FEAT_STYLE_PROPERTY] = styleName;
+          // serializedFeature.properties[this.constructor.FEAT_STYLE_PROPERTY] = styleName;
         });
       }
     });
 
     const serialized = {
-      ...super.serialize(layer, source),
+      ...super.serialize(layer, opts, viewResolution),
       ...{
-        name: layer.get('name') || 'Vector Layer',
-        opacity: layer.getOpacity(),
         geoJson: {
           type: 'FeatureCollection',
           features: serializedFeatures
         },
-        styles: serializedStyles,
-        styleProperty: this.constructor.FEAT_STYLE_PROPERTY,
-        type: this.constructor.TYPE_VECTOR
-      }
+        name: layer.get('name') || 'Vector Layer',
+        opacity: layer.getOpacity(),
+        // TODO Currently not supported, GeoStyler MapFish JSON StyleParser should
+        // be used here!
+        style: {},
+        type: this.constructor.TYPE_GEOJSON
+      },
+      ...opts
     };
 
     return serialized;
@@ -177,6 +189,7 @@ export class VectorSerializer extends BaseSerializer {
       case 'Point':
       case 'MultiPoint':
         style = {
+          version: 2,
           strokeColor: parseColor(get(imageStyle, 'stroke.color')).hex,
           strokeOpacity: get(parseColor(get(imageStyle, 'stroke.color')), 'rgba[3]'),
           strokeWidth: get(imageStyle, 'stroke.width'),
@@ -425,4 +438,4 @@ export class VectorSerializer extends BaseSerializer {
 
 }
 
-export default VectorSerializer;
+export default MapFishPrintV3GeoJsonSerializer;

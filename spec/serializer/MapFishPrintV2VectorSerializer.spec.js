@@ -13,9 +13,9 @@ import OlGeomPoint from 'ol/geom/Point';
 import OlGeomLineString from 'ol/geom/LineString';
 import OlGeomPolygon from 'ol/geom/Polygon';
 
-import { VectorSerializer } from '../../src/index';
+import { MapFishPrintV2VectorSerializer } from '../../src/serializer/MapFishPrintV2VectorSerializer';
 
-describe('VectorSerializer', () => {
+describe('MapFishPrintV2VectorSerializer', () => {
   let serializer;
   // const featureCollection = {
   //   type: 'FeatureCollection',
@@ -120,11 +120,11 @@ describe('VectorSerializer', () => {
   // };
 
   beforeEach(() => {
-    serializer = new VectorSerializer();
+    serializer = new MapFishPrintV2VectorSerializer();
   });
 
   it('is defined', () => {
-    expect(VectorSerializer).not.toBeUndefined();
+    expect(MapFishPrintV2VectorSerializer).not.toBeUndefined();
   });
 
   it('checks if the given layer can be serialized with it', () => {

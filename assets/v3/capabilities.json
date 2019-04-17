@@ -1,0 +1,309 @@
+{
+	"app": "default",
+	"layouts": [{
+		"name": "A4 Portrait",
+		"attributes": [{
+			"name": "map",
+			"type": "MapAttributeValues",
+			"clientParams": {
+				"zoomToFeatures": {
+					"type": "ZoomToFeatures",
+					"embeddedType": {
+						"minScale": {
+							"type": "double",
+							"default": null
+						},
+						"zoomType": {
+							"type": "ZoomType",
+							"embeddedType": {},
+							"default": "EXTENT"
+						},
+						"layer": {
+							"type": "String",
+							"default": null
+						},
+						"minMargin": {
+							"type": "int",
+							"default": 10
+						}
+					}
+				},
+				"dpi": {
+					"type": "double"
+				},
+				"bbox": {
+					"type": "double",
+					"isArray": true
+				},
+				"center": {
+					"type": "double",
+					"isArray": true
+				},
+				"width": {
+					"type": "int",
+					"default": 553
+				},
+				"longitudeFirst": {
+					"type": "boolean",
+					"default": null
+				},
+				"layers": {
+					"type": "array",
+					"default": []
+				},
+				"projection": {
+					"type": "String",
+					"default": null
+				},
+				"useNearestScale": {
+					"type": "boolean",
+					"default": null
+				},
+				"dpiSensitiveStyle": {
+					"type": "boolean",
+					"default": true
+				},
+				"scale": {
+					"type": "double",
+					"default": null
+				},
+				"useAdjustBounds": {
+					"type": "boolean",
+					"default": null
+				},
+				"height": {
+					"type": "int",
+					"default": 555
+				},
+				"areaOfInterest": {
+					"type": "AreaOfInterest",
+					"embeddedType": {
+						"area": {
+							"type": "String"
+						},
+						"display": {
+							"type": "AoiDisplay",
+							"embeddedType": {},
+							"default": "RENDER"
+						},
+						"style": {
+							"type": "String",
+							"default": null
+						},
+						"renderAsSvg": {
+							"type": "boolean",
+							"default": null
+						}
+					},
+					"default": null
+				},
+				"rotation": {
+					"type": "double",
+					"default": null
+				}
+			},
+			"clientInfo": {
+				"dpiSuggestions": [72, 120, 200, 254],
+				"maxDPI": 254,
+				"width": 553,
+				"height": 555
+			}
+		}, {
+			"name": "legend",
+			"type": "LegendAttributeValue",
+			"clientParams": {
+				"classes": {
+					"type": "LegendAttributeValue[]",
+					"embeddedType": {
+						"classes": {
+							"type": "recursiveDefinition",
+							"default": null,
+							"isArray": true
+						},
+						"dpi": {
+							"type": "double",
+							"default": null
+						},
+						"icons": {
+							"type": "URL",
+							"default": null,
+							"isArray": true
+						},
+						"name": {
+							"type": "String",
+							"default": null
+						}
+					},
+					"default": null,
+					"isArray": true
+				},
+				"dpi": {
+					"type": "double",
+					"default": null
+				},
+				"icons": {
+					"type": "URL",
+					"default": null,
+					"isArray": true
+				},
+				"name": {
+					"type": "String",
+					"default": null
+				}
+			}
+		}]
+	}, {
+		"name": "A4 landscape",
+		"attributes": [{
+			"name": "map",
+			"type": "MapAttributeValues",
+			"clientParams": {
+				"zoomToFeatures": {
+					"type": "ZoomToFeatures",
+					"embeddedType": {
+						"minScale": {
+							"type": "double",
+							"default": null
+						},
+						"zoomType": {
+							"type": "ZoomType",
+							"embeddedType": {},
+							"default": "EXTENT"
+						},
+						"layer": {
+							"type": "String",
+							"default": null
+						},
+						"minMargin": {
+							"type": "int",
+							"default": 10
+						}
+					}
+				},
+				"dpi": {
+					"type": "double"
+				},
+				"bbox": {
+					"type": "double",
+					"isArray": true
+				},
+				"center": {
+					"type": "double",
+					"isArray": true
+				},
+				"width": {
+					"type": "int",
+					"default": 800
+				},
+				"longitudeFirst": {
+					"type": "boolean",
+					"default": null
+				},
+				"layers": {
+					"type": "array",
+					"default": []
+				},
+				"projection": {
+					"type": "String",
+					"default": null
+				},
+				"useNearestScale": {
+					"type": "boolean",
+					"default": null
+				},
+				"dpiSensitiveStyle": {
+					"type": "boolean",
+					"default": true
+				},
+				"scale": {
+					"type": "double",
+					"default": null
+				},
+				"useAdjustBounds": {
+					"type": "boolean",
+					"default": null
+				},
+				"height": {
+					"type": "int",
+					"default": 553
+				},
+				"areaOfInterest": {
+					"type": "AreaOfInterest",
+					"embeddedType": {
+						"area": {
+							"type": "String"
+						},
+						"display": {
+							"type": "AoiDisplay",
+							"embeddedType": {},
+							"default": "RENDER"
+						},
+						"style": {
+							"type": "String",
+							"default": null
+						},
+						"renderAsSvg": {
+							"type": "boolean",
+							"default": null
+						}
+					},
+					"default": null
+				},
+				"rotation": {
+					"type": "double",
+					"default": null
+				}
+			},
+			"clientInfo": {
+				"dpiSuggestions": [72, 120, 200, 254],
+				"maxDPI": 254,
+				"width": 800,
+				"height": 553
+			}
+		}, {
+			"name": "legend",
+			"type": "LegendAttributeValue",
+			"clientParams": {
+				"classes": {
+					"type": "LegendAttributeValue[]",
+					"embeddedType": {
+						"classes": {
+							"type": "recursiveDefinition",
+							"default": null,
+							"isArray": true
+						},
+						"dpi": {
+							"type": "double",
+							"default": null
+						},
+						"icons": {
+							"type": "URL",
+							"default": null,
+							"isArray": true
+						},
+						"name": {
+							"type": "String",
+							"default": null
+						}
+					},
+					"default": null,
+					"isArray": true
+				},
+				"dpi": {
+					"type": "double",
+					"default": null
+				},
+				"icons": {
+					"type": "URL",
+					"default": null,
+					"isArray": true
+				},
+				"name": {
+					"type": "String",
+					"default": null
+				}
+			}
+		}]
+	}],
+	"formats": ["bmp", "gif", "jpeg", "jpg", "pdf", "png", "tif", "tiff"]
+}

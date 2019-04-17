@@ -34,67 +34,92 @@ printProvider.init()
     fillPrintAppCombo();
     fillCombos();
     registerPrintHandler();
+    registerCancelPrintHandler();
   });
 
 /**
  *
  */
-const onAppChange = event => {
+function onAppChange(event) {
   const value = event.target.value;
   printProvider.setPrintApp(value);
-};
+}
 
 /**
  *
  */
-const onLayoutChange = event => {
+function onLayoutChange(event) {
   const value = event.target.value;
   printProvider.setLayout(value);
-};
+}
 
 /**
  *
  */
-const onDpiChange = event => {
+function onDpiChange(event) {
   const value = event.target.value;
   printProvider.setDpi(value);
-};
+}
 
 /**
  *
  */
-const onFormatChange = event => {
+function onFormatChange(event) {
   const value = event.target.value;
   printProvider.setOutputFormat(value);
-};
+}
 
 /**
  *
  */
-const onScaleChange = event => {
+function onScaleChange(event) {
   const value = event.target.value;
   printProvider.setScale(value);
-};
+}
 
 /**
  *
  */
-const registerPrintHandler = () => {
+function registerPrintHandler() {
   const printBtn = document.querySelector('button#print');
   printBtn.onclick = onPrintClick;
-};
+}
 
 /**
  *
  */
-const onPrintClick = () => {
-  printProvider.print();
-};
+function registerCancelPrintHandler() {
+  const cancelPrintBtn = document.querySelector('button#cancel-print');
+  cancelPrintBtn.onclick = onCancelPrintClick;
+}
 
 /**
  *
  */
-const fillPrintAppCombo = () => {
+function onPrintClick() {
+  printProvider.print(true)
+    .catch(error => {
+      console.log('Error while printing: ' + error);
+    });
+
+  // TODO: This should work as expected, but error handling is untested!
+  // printProvider.print()
+  //   .then(url => {
+  //     console.log(url);
+  //   });
+}
+
+/**
+ *
+ */
+function onCancelPrintClick() {
+  printProvider.cancelPrint(printProvider.printJobReference);
+}
+
+/**
+ *
+ */
+function fillPrintAppCombo() {
   const appSelect = document.querySelector('select#app-select');
   printProvider.getPrintApps().forEach(printApp => {
     const option = document.createElement('option');
@@ -103,12 +128,12 @@ const fillPrintAppCombo = () => {
   });
   appSelect.value = printProvider.getPrintApp();
   appSelect.onchange = onAppChange;
-};
+}
 
 /**
  *
  */
-const fillCombos = () => {
+function fillCombos() {
   const layoutSelect = document.querySelector('select#layout-select');
   printProvider.getLayouts().forEach(layout => {
     const option = document.createElement('option');
@@ -121,27 +146,27 @@ const fillCombos = () => {
   const dpiSelect = document.querySelector('select#dpi-select');
   printProvider.getDpis().forEach(dpi => {
     const option = document.createElement('option');
-    option.text = dpi.name;
+    option.text = dpi;
     dpiSelect.add(option);
   });
-  dpiSelect.value = printProvider.getDpi().name;
+  dpiSelect.value = printProvider.getDpi();
   dpiSelect.onchange = onDpiChange;
 
   const formatSelect = document.querySelector('select#format-select');
   printProvider.getOutputFormats().forEach(format => {
     const option = document.createElement('option');
-    option.text = format.name;
+    option.text = format;
     formatSelect.add(option);
   });
-  formatSelect.value = printProvider.getOutputFormat().name;
+  formatSelect.value = printProvider.getOutputFormat();
   formatSelect.onchange = onFormatChange;
 
   const scaleSelect = document.querySelector('select#scale-select');
   printProvider.getScales().forEach(scale => {
     const option = document.createElement('option');
-    option.text = scale.name;
+    option.text = scale;
     scaleSelect.add(option);
   });
-  scaleSelect.value = printProvider.getScale().name;
+  scaleSelect.value = printProvider.getScale();
   scaleSelect.onchange = onScaleChange;
-};
+}

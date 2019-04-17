@@ -67,7 +67,7 @@ printManager.init()
 | maskColor       | String          | No       | `rgba(130, 130, 130, 0.5)` | The color to apply to the mask around the extent feature. Will be applied to the default extentLayer only. If you don't want the mask to be shown on the map, provide a custom extentLayer.|
 | transformOpts   | Object          | No       | `{}` | Custom options to apply to the transform interaction. See http://viglino.github.io/ol-ext/doc/doc-pages/ol.interaction.Transform.html for valid options.|
 | layerFilter     | Function        | No       | `() => true` |A filter function that will be called before the print call. Should return a Boolean whether to serialize a layer for print or not.|
-| serializers     | Array           | No       | `[WMSSerializer, VectorSerializer]` |The layer serializers to use. May be overridden or extented to obtain custom functionality.|
+| serializers     | Array           | No       | `[MapFishPrintV2WMSSerializer, VectorSerializer]` |The layer serializers to use. May be overridden or extented to obtain custom functionality.|
 
 ### Methods
 

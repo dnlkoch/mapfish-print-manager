@@ -4,11 +4,11 @@ import OlSourceTileWMS from 'ol/source/TileWMS';
 import BaseSerializer from './BaseSerializer';
 
 /**
- * The WMSSerializer.
+ * The MapFishPrintV2WMSSerializer.
  *
  * @class
  */
-export class WMSSerializer extends BaseSerializer {
+export class MapFishPrintV2WMSSerializer extends BaseSerializer {
 
   /**
    * The WMS layer type identificator.
@@ -83,4 +83,4 @@ export class WMSSerializer extends BaseSerializer {
   }
 }
 
-export default WMSSerializer;
+export default MapFishPrintV2WMSSerializer;

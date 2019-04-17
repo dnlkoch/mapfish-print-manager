@@ -3,8 +3,8 @@ import OlSourceTileWMS from 'ol/source/TileWMS';
 import OlSourceImageWMS from 'ol/source/ImageWMS';
 
 import BaseMapFishPrintManager from './BaseMapFishPrintManager';
-import WMSSerializer from '../serializer/WMSSerializer';
-import VectorSerializer from '../serializer/VectorSerializer';
+import MapFishPrintV2WMSSerializer from '../serializer/MapFishPrintV2WMSSerializer';
+import MapFishPrintV2VectorSerializer from '../serializer/MapFishPrintV2VectorSerializer';
 import Shared from '../util/Shared';
 import Log from '../util/Logger';
 
@@ -28,7 +28,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
    *
    * @type {Array}
    */
-  serializers = [WMSSerializer, VectorSerializer];
+  serializers = [MapFishPrintV2WMSSerializer, MapFishPrintV2VectorSerializer];
 
   /**
    * The constructor
@@ -51,6 +51,38 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
         .catch(error => Promise.reject(new Error(`Could not initialize `+
           `the manager: ${error.message}`)));
     }
+  }
+
+  /**
+   * Initializes the manager instance. Typically called by subclasses via init().
+   *
+   * TODO Implement as interface (-> TS) and move to MapFishPrintV2Manager
+   * TODO Check return type Boolean?
+   * TODO Input should be from Type PrintCapabilities, Managers must parse accordingly.
+   *
+   * @param {Object} capabilities The capabilities to set.
+   * @return {Boolean}
+   */
+  initManager(capabilities) {
+    this.capabilities = capabilities;
+
+    this._layouts = this.capabilities.layouts;
+    this._outputFormats = this.capabilities.outputFormats;
+    this._dpis = this.capabilities.dpis;
+    this._scales = this.capabilities.scales;
+
+    this.setLayout(this.getLayouts()[0].name);
+    this.setOutputFormat(this.getOutputFormats()[0].name);
+    this.setDpi(this.getDpis()[0].name);
+    this.setScale(this.getClosestScaleToFitMap().name);
+
+    this.initPrintExtentLayer();
+    this.initPrintExtentFeature();
+    this.initTransformInteraction();
+
+    this._initiated = true;
+
+    return this.isInitiated();
   }
 
   /**
@@ -139,7 +171,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
     const extentFeatureGeometry = this._extentFeature.getGeometry();
 
     const serializedLayers = mapLayers
-      .filter(this.filterPrintableLayer)
+      .filter(this.filterPrintableLayer.bind(this))
       .reduce((acc, layer) => {
         const serializedLayer = this.serializeLayer(layer);
         if (serializedLayer) {
@@ -149,7 +181,7 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
       }, []);
 
     const serializedLegends = mapLayers
-      .filter(this.filterPrintableLegend)
+      .filter(this.filterPrintableLegend.bind(this))
       .reduce((acc, layer) => {
         const serializedLegend = this.serializeLegend(layer);
         if (serializedLegend) {
@@ -175,50 +207,6 @@ export class MapFishPrintV2Manager extends BaseMapFishPrintManager {
     };
 
     return payload;
-  }
-
-  /**
-   * Checks if a given layer should be printed.
-   *
-   * @param {ol.layer.Layer} layer The layer to check.
-   * @return {Boolean} Whether the layer should be printed or not.
-   */
-  filterPrintableLayer(layer) {
-    return layer !== this.extentLayer && layer.getVisible() && this.layerFilter(layer);
-  }
-
-  /**
-   * Checks if the legend of a given legend should be printed.
-   *
-   * @param {ol.layer.Layer} layer The layer to check.
-   * @return {Boolean} Whether the legend of the layer should be printed or not.
-   */
-  filterPrintableLegend(layer) {
-    return layer !== this.extentLayer && layer.getVisible() && this.legendFilter(layer);
-  }
-
-  /**
-   * Serializes/encodes the given layer.
-   *
-   * @param {ol.layer.Layer} layer The layer to serialize/encode.
-   * @return {Object} The serialized/encoded layer.
-   */
-  serializeLayer(layer) {
-    const layerSource = layer.getSource();
-    const viewResolution = this.map.getView().getResolution();
-
-    const serializerCand = this.serializers.find(serializer => {
-      return serializer.sourceCls.some(cls => layerSource instanceof cls);
-    });
-
-    if (serializerCand) {
-      const serializer = new serializerCand();
-      return serializer.serialize(layer, viewResolution);
-    } else {
-      Log.info('No suitable serializer for this layer/source found. ' +
-        'Please check the input layer or provide an own serializer capabale ' +
-        'of serializing the given layer/source to the manager.');
-    }
   }
 
   /**

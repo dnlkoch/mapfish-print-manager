@@ -6,10 +6,28 @@
 export class PrintCapabilities {
 
   /**
-   * The constructor
+   * The name of the print application.
+   *
+   * @type {Array}
+   * @private
    */
-  constructor() {
-  }
+  app = null;
+
+  /**
+   * The supported layouts by the print service.
+   *
+   * @type {Array}
+   * @private
+   */
+  layouts = [];
+
+  /**
+   * The supported output formats by the print service.
+   *
+   * @type {Array}
+   * @private
+   */
+  outputFormats = [];
 
 }
 

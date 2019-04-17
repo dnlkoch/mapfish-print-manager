@@ -5,17 +5,17 @@ import OlSourceImageWMS from 'ol/source/ImageWMS';
 import OlSourceTileWMS from 'ol/source/TileWMS';
 import OlSourceOSM from 'ol/source/OSM';
 
-import { WMSSerializer } from '../../src/index';
+import { MapFishPrintV2WMSSerializer } from '../../src/serializer/MapFishPrintV2WMSSerializer';
 
-describe('WMSSerializer', () => {
+describe('MapFishPrintV2WMSSerializer', () => {
   let serializer;
 
   beforeEach(() => {
-    serializer = new WMSSerializer();
+    serializer = new MapFishPrintV2WMSSerializer();
   });
 
   it('is defined', () => {
-    expect(WMSSerializer).not.toBeUndefined();
+    expect(MapFishPrintV2WMSSerializer).not.toBeUndefined();
   });
 
   it('checks if the given layer can be serialized with it', () => {
