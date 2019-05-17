@@ -1,0 +1,9 @@
+version: '3'
+services:
+  mapfish-print-manager:
+    build:
+      context: mapfish-print-manager/
+    ports:
+      - 18082:8080
+    volumes:
+      - ./mapfish-print-manager/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:Z

@@ -1,0 +1,67 @@
+{
+  "name": "@terrestris/mapfish-print-manager",
+  "version": "3.1.0",
+  "description": "An interface to easily communicate with the MapFish Print module",
+  "author": "terrestris GmbH & Co. KG <info@terrestris.de>",
+  "contributors": [
+    {
+      "name": "Daniel Koch",
+      "email": "koch@terrestris.de",
+      "url": "https://github.com/dnlkoch"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terrestris/mapfish-print-manager"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist/* ./build/*",
+    "lint": "eslint --ext js src/ spec/",
+    "lint:fix": "npm run lint -- --fix",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "start": "webpack-dev-server --config webpack.development.config.js",
+    "build:examples": "npm run clean && webpack --config webpack.production.config.js",
+    "build:dist": "npm run clean && babel src --out-dir dist",
+    "prepublishOnly": "npm run build:dist",
+    "release": "np --no-yarn && git push https://github.com/terrestris/mapfish-print-manager.git master --tags"
+  },
+  "dependencies": {
+    "js-logger": "1.6.0",
+    "lodash": "4.17.11",
+    "parse-color": "1.0.0",
+    "parse-css-font": "4.0.0"
+  },
+  "peerDependencies": {
+    "ol": "~5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/preset-env": "7.4.3",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "24.7.1",
+    "babel-loader": "8.0.6",
+    "babel-plugin-import": "1.11.2",
+    "canvas-prebuilt": "1.6.11",
+    "copy-webpack-plugin": "5.0.3",
+    "eslint": "5.16.0",
+    "jest": "24.7.1",
+    "jest-fetch-mock": "2.1.2",
+    "np": "5.0.1",
+    "ol": "5.3.2",
+    "rimraf": "2.6.3",
+    "webpack": "4.31.0",
+    "webpack-cli": "3.3.2",
+    "webpack-dev-server": "3.3.1",
+    "webpack-merge": "4.2.1"
+  }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a4_portrait" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71f354e3-dc27-413b-85b6-9150bb8afba3">
+	<parameter name="mapSubReport" class="java.lang.String"/>
+	<parameter name="legendDataSource" class="net.sf.jasperreports.engine.data.JRTableModelDataSource">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="legendSubReport" class="java.lang.String"/>
+	<parameter name="printLegend" class="java.lang.Boolean"/>
+	<title>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="800" uuid="0115d7d2-91bd-41a5-abba-eafa96eb0471"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<subreport>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="800" uuid="f232608d-9f88-4857-9d75-626b43cd6eef">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportExpression><![CDATA[$P{mapSubReport}]]></subreportExpression>
+			</subreport>
+			<image>
+				<reportElement x="475" y="745" width="75" height="50" uuid="4e3eaa59-50eb-4606-a6de-91c56baf1b88"/>
+				<imageExpression><![CDATA["./img/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="802">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<printWhenExpression><![CDATA[$P{printLegend}.equals(true)]]></printWhenExpression>
+			<textField>
+				<reportElement x="10" y="5" width="490" height="50" uuid="3933392b-f1e2-5eda-9cb4-6caa2b3eb0cc"/>
+				<textElement textAlignment="Left">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Legend"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="25" y="30" width="490" height="751" uuid="294b9add-84a2-4ae6-ab58-3f0aa6bddb0b"/>
+				<dataSourceExpression><![CDATA[$P{legendDataSource}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{legendSubReport}]]></subreportExpression>
+			</subreport>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="800" isPrintWhenDetailOverflows="true" uuid="f944b03c-60a2-4d6e-ba42-1db6b463e7c3"/>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>

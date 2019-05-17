@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Print Manager (v2) example</title>
+
+    <link rel="stylesheet" href="https://openlayers.org/en/latest/css/ol.css" type="text/css">
+
+    <style>
+      #map {
+        height: 320px;
+        width: 800px;
+      }
+    </style>
+</head>
+<body>
+    <div id="map" class="map"></div>
+    <div class="print-controls">
+      Layout: <select id="layout-select"></select>
+      DPI: <select id="dpi-select"></select>
+      Scale: <select id="scale-select"></select>
+      Format: <select id="format-select"></select>
+      <button id="print">Print</button>
+    </div>
+    <script src="./print-manager-v2-example.js"></script>
+</body>
+</html>
